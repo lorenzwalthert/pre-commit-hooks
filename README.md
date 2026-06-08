@@ -12,28 +12,6 @@ This hook can serve two use cases:
 
 - Ensure that people within an organisation commit with their org email address instead of their private address. This is most useful for private repositories where the email does not need to be hidden and where people should be prevented to accidentially commit with their private email address.
 
-### `mypy-with-poetry`
-
-Runs mypy with your system's `poetry` executable (through `language: system`). The advantage over the [mypy mirror repo](https://github.com/pre-commit/mirrors-mypy#using-mypy-with-pre-commit) is that the virtual environment configured with poetry gets used instead of one that pre-commit manages (with `language: python`). That way, you don't need to configure `additional_dependencies:` for the mypy hook to work. The hook `mypy-with-poetry` requires
-
-* either [`files`](https://mypy.readthedocs.io/en/stable/config_file.html#confval-files) to be specified in `pyproject.toml`, e.g. like this:
-
-    ```toml
-    [tool.mypy]
-
-    files = "."
-    ```
-* or to pass `files` as an additional argument to the hook in `.pre-commit-config.yaml`, e.g. like this for passing `.` to mypy:
-
-    ```yaml
-    repos:
-      - repo: https://github.com/Ponte-Energy-Partners/pre-commit-hooks
-        rev: 4305ba8
-        hooks:
-        - id: mypy-with-poetry
-          args: [.]
-    ```
-
 
 ## How to use the hooks
 
@@ -48,5 +26,4 @@ repos:
     hooks:
       - id: verify-git-email
         args: [--domains=ponte-energy.de]
-      - id: mypy-with-poetry
 ```
