@@ -1,5 +1,4 @@
 import pytest
-
 from pep_pre_commit_hooks import verify_git_email
 
 

@@ -1,6 +1,9 @@
 import pytest
-
-from pep_pre_commit_hooks.verify_git_email import main, parse_args, DomainMisconfiguredError
+from pep_pre_commit_hooks.verify_git_email import (
+    DomainMisconfiguredError,
+    main,
+    parse_args,
+)
 
 
 def test_parse_args():
@@ -18,7 +21,9 @@ def test_not_correctly_configured_email():
     with pytest.raises(DomainMisconfiguredError) as excinfo:
         main(["--domains", "gmail.com"])
 
-    assert "but an email address matching one of `['gmail.com']` was expected." in str(excinfo.value)
+    assert "but an email address matching one of `['gmail.com']` was expected." in str(
+        excinfo.value,
+    )
 
 
 @pytest.mark.usefixtures("_ch_tempdir", "_git_init", "_git_config_icloud_email")

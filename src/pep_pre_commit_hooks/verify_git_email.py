@@ -3,8 +3,7 @@
 import argparse
 import re
 import subprocess
-import sys
-from typing import Sequence
+from collections.abc import Sequence
 
 _DEFAULT_DOMAINS_HELP = (
     "Comma-separated list of domain names (excluding @) the email has to match"
@@ -25,6 +24,7 @@ def verify_git_email(domains: str) -> None:
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
+    """Parse the command line arguments."""
     parser = argparse.ArgumentParser(
         prog="verify-git-email",
         description=(
@@ -34,13 +34,6 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--domains", required=True, help=_DEFAULT_DOMAINS_HELP)
     return parser.parse_args(argv)
-
-
-def main(argv: Sequence[str] | None = None) -> int:
-    args = parse_args(argv)
-    verify_git_email(args.domains)
-    return 0
-
 
 class DomainMisconfiguredError(Exception):
     """Signal that the email address to use with git is not configured as expected."""
@@ -57,3 +50,11 @@ class DomainMisconfiguredError(Exception):
             f"but an email address matching one of `{domains}` was expected."
         )
         super().__init__(msg)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Enter here."""
+    args = parse_args(argv)
+    verify_git_email(args.domains)
+    return 0
+

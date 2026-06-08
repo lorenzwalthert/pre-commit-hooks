@@ -106,7 +106,9 @@ select = [
 ]
 ignore = [
     "D203", # one-blank-line-before-class
-    "D213", # multi-line-summary-second-line
+    "D213", # multi-line-summary-second-line, 
+    "TRY003", # Avoid specifying long messages outside the exception class
+    "EM101", # argException must not use a string literal, assign to variable first
 ]
 
 [tool.ruff.flake8-annotations]
@@ -126,6 +128,7 @@ force-wrap-aliases = true
     "S101", # assert
     "SLF001", # private-member-access
     "T201", # print-found
+    "PLR2004", 
 ]
 
 [tool.mypy]
