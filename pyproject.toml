@@ -38,6 +38,7 @@ dev = [
     "pytest>=8.0.0,<9",
     "pytest-cov>=4.0.0,<5",
     "mypy>=1.15.0,<2",
+    "pre-commit>=4.6.0",
 ]
 
 [tool.uv]
@@ -106,7 +107,7 @@ select = [
 ]
 ignore = [
     "D203", # one-blank-line-before-class
-    "D213", # multi-line-summary-second-line, 
+    "D213", # multi-line-summary-second-line,
     "TRY003", # Avoid specifying long messages outside the exception class
     "EM101", # argException must not use a string literal, assign to variable first
 ]
@@ -128,7 +129,7 @@ force-wrap-aliases = true
     "S101", # assert
     "SLF001", # private-member-access
     "T201", # print-found
-    "PLR2004", 
+    "PLR2004",
 ]
 
 [tool.mypy]

@@ -35,6 +35,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--domains", required=True, help=_DEFAULT_DOMAINS_HELP)
     return parser.parse_args(argv)
 
+
 class DomainMisconfiguredError(Exception):
     """Signal that the email address to use with git is not configured as expected."""
 
@@ -57,4 +58,3 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     verify_git_email(args.domains)
     return 0
-
