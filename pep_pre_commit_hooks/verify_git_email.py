@@ -1,33 +1,45 @@
 """Verify a user's git email address."""
 
+import argparse
 import re
 import subprocess
+import sys
+from typing import Sequence
 
-import typer
-
-app = typer.Typer()
-
-_default_domains = typer.Option(
-    default="",
-    help="Comma-separated list of domai names (excluding @) the email has to match",
+_DEFAULT_DOMAINS_HELP = (
+    "Comma-separated list of domain names (excluding @) the email has to match"
 )
 
 
-@app.command()
-def verify_git_email(domains: str = _default_domains) -> None:
+def verify_git_email(domains: str) -> None:
     """Ensure that the currently active git config's email matches a domain."""
     if not domains or len(domains) < 1:
-        raise ValueError("`domains` is required")  # noqa: EM101, TRY003
+        raise ValueError("`domains` is required")
+
     domains_ = domains.split(",")
     command = ("git", "config", "--get", "user.email")
-    matched = 0
-    for domain in domains_:
-        output = subprocess.check_output(command).decode().strip()
-        if re.search(f".*@{re.escape(domain)}$", output):
-            matched += 1
+    output = subprocess.check_output(command).decode().strip()
 
-    if not matched:
+    if not any(re.search(f".*@{re.escape(domain)}$", output) for domain in domains_):
         raise DomainMisconfiguredError(command=command, output=output, domains=domains_)
+
+
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="verify-git-email",
+        description=(
+            "Ensure that the currently active git config's email matches one of "
+            "the specified domains."
+        ),
+    )
+    parser.add_argument("--domains", required=True, help=_DEFAULT_DOMAINS_HELP)
+    return parser.parse_args(argv)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
+    verify_git_email(args.domains)
+    return 0
 
 
 class DomainMisconfiguredError(Exception):

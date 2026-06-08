@@ -1,32 +1,32 @@
 import pytest
-from typer.testing import CliRunner
 
-from pep_pre_commit_hooks import verify_git_email
+from pep_pre_commit_hooks.verify_git_email import main, parse_args, DomainMisconfiguredError
 
-runner = CliRunner()
+
+def test_parse_args():
+    args = parse_args(["--domains", "icloud.com"])
+    assert args.domains == "icloud.com"
 
 
 @pytest.mark.usefixtures("_ch_tempdir", "_git_init", "_git_config_icloud_email")
 def test_success():
-    result = runner.invoke(verify_git_email.app, ["--domains", "icloud.com"])
-    assert result.exit_code == 0
-    assert not result.stdout
+    assert main(["--domains", "icloud.com"]) == 0
 
 
 @pytest.mark.usefixtures("_ch_tempdir", "_git_init", "_git_config_icloud_email")
 def test_not_correctly_configured_email():
-    result = runner.invoke(verify_git_email.app, ["--domains", "gmail.com"])
-    assert result.exit_code == 1
-    assert isinstance(result.exception, verify_git_email.DomainMisconfiguredError)
-    expected_msg = (
-        "`git config --get user.email` returned test@icloud.com, "
-        "but an email address matching one of `['gmail.com']` was expected.",
-    )
-    assert result.exception.args == expected_msg
+    with pytest.raises(DomainMisconfiguredError) as excinfo:
+        main(["--domains", "gmail.com"])
+
+    assert "but an email address matching one of `['gmail.com']` was expected." in str(excinfo.value)
 
 
 @pytest.mark.usefixtures("_ch_tempdir", "_git_init", "_git_config_icloud_email")
-def test_missing_domain():
-    result = runner.invoke(verify_git_email.app)
-    assert isinstance(result.exception, ValueError)
-    assert result.exception.args == ("`domains` is required",)
+def test_missing_domain(capsys):
+    with pytest.raises(SystemExit) as excinfo:
+        main([])
+
+    captured = capsys.readouterr()
+    assert "usage: verify-git-email" in captured.err
+    assert "the following arguments are required: --domains" in captured.err
+    assert excinfo.value.code == 2
