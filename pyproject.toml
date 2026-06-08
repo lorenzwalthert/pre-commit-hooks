@@ -7,6 +7,7 @@ requires-python = ">=3.12.0"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
 ]
@@ -44,7 +45,7 @@ default-groups = "all"
 
 [tool.uv.build-backend]
 module-name = ["pep_pre_commit_hooks"]
-module-root = ""
+module-root = "src"
 
 [build-system]
 requires = ["uv_build>=0.11.19,<0.12.0"]
