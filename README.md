@@ -1,4 +1,4 @@
-Public [pre-commit hooks](https://pre-commit.com/) developed at Ponte Energy Partners
+Private collection of [pre-commit hooks](https://pre-commit.com/)
 
 
 ## Available hooks
@@ -21,9 +21,9 @@ You can include the hooks like this in your repo:
 # in .pre-commit-config.yaml in your git repo root
 repos:
 
-  - repo: https://github.com/Ponte-Energy-Partners/pre-commit-hooks
+  - repo: https://github.com/lorenzwalthert/pre-commit-hooks
     rev: 4305ba8
     hooks:
       - id: verify-git-email
-        args: [--domains=ponte-energy.de]
+        args: [--domains=my.domain]
 ```

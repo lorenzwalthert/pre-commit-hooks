@@ -1,3 +1,19 @@
+[project]
+name = "personal-pre-commit-hooks"
+version = "1.1.2"
+description = "Personal pre-commit hooks"
+authors = [{ name = "Lorenz Walthert", email = "lorenz.walthert@icloud.com" }]
+requires-python = ">=3.12.0"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+[project.scripts]
+verify-git-email = "personal_pre_commit_hooks.verify_git_email:main"
+
 
 
 
@@ -14,36 +30,27 @@ version_files = [
 changelog_incremental = true
 changelog_start_rev = "1179d2ca8ba8f989b93f24443acc118d55de3b4c"
 
-
-
-
-
-
-[tool.poetry]
-name = "pep-pre-commit-hooks"
-version = "1.1.2"
-description = "Public pre-commit hooks"
-authors = ["Lorenz Walthert <lorenz.walthert@icloud.com>"]
-readme = "README.md"
-packages = [
-    {include = "pep_pre_commit_hooks"}
+[dependency-groups]
+dev = [
+    "commitizen>=3.0.0,<4",
+    "black>=24.3.0,<25",
+    "ruff>=0.0.254,<0.0.255",
+    "pytest>=8.0.0,<9",
+    "pytest-cov>=4.0.0,<5",
+    "mypy>=1.15.0,<2",
+    "pre-commit>=4.6.0",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.13.0"
-typer = "^0.19.2"
+[tool.uv]
+default-groups = "all"
 
-[tool.poetry.scripts]
-verify-git-email = "pep_pre_commit_hooks.verify_git_email:app"
+[tool.uv.build-backend]
+module-name = ["personal_pre_commit_hooks"]
+module-root = "src"
 
-
-[tool.poetry.group.dev.dependencies]
-commitizen = "^3.0.0"
-black = "^24.3.0"
-ruff = "^0.0.254"
-pytest = "^8.0.0"
-pytest-cov = "^4.0.0"
-mypy = "^1.15.0"
+[build-system]
+requires = ["uv_build>=0.11.19,<0.12.0"]
+build-backend = "uv_build"
 
 
 [tool.ruff]
@@ -100,7 +107,9 @@ select = [
 ]
 ignore = [
     "D203", # one-blank-line-before-class
-    "D213", # multi-line-summary-second-line
+    "D213", # multi-line-summary-second-line,
+    "TRY003", # Avoid specifying long messages outside the exception class
+    "EM101", # argException must not use a string literal, assign to variable first
 ]
 
 [tool.ruff.flake8-annotations]
@@ -120,19 +129,15 @@ force-wrap-aliases = true
     "S101", # assert
     "SLF001", # private-member-access
     "T201", # print-found
+    "PLR2004",
 ]
 
 [tool.mypy]
 
-files = "pep_pre_commit_hooks"
+files = "personal_pre_commit_hooks"
 disallow_incomplete_defs = true
 disallow_untyped_defs = true
 exclude = [
     "^tests\\/.*$",
 ]
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 

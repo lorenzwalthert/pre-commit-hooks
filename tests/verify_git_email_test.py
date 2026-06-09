@@ -1,6 +1,5 @@
 import pytest
-
-from pep_pre_commit_hooks import verify_git_email
+from personal_pre_commit_hooks import verify_git_email
 
 
 @pytest.mark.usefixtures("_ch_tempdir", "_git_init", "_git_config_icloud_email")
