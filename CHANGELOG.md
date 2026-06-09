@@ -1,3 +1,20 @@
+## 2.0.0 (2026-06-09)
+
+### Feat
+
+- style improvements
+- remove mypy hook
+
+### Fix
+
+- **ci**: GitHub Actions fix
+
+### Refactor
+
+- drop all pep refrences
+- switch to source layout
+- use standardlibary only
+
 ## 1.1.2 (2025-09-29)
 
 ### Chore
