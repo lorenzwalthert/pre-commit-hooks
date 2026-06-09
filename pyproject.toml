@@ -33,7 +33,7 @@ changelog_start_rev = "1179d2ca8ba8f989b93f24443acc118d55de3b4c"
 [dependency-groups]
 dev = [
     "commitizen>=3.0.0,<4",
-    "black>=24.3.0,<25",
+    "black>=26.3.1,<27",
     "ruff>=0.0.254,<0.0.255",
     "pytest>=8.0.0,<9",
     "pytest-cov>=4.0.0,<5",
