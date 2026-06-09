@@ -24,5 +24,5 @@ cz commit # on every commit
 ```bash
 NEXTVERSION=$(yes | cz bump --dry-run | sed -n 's/tag to create: \(.*\).*/\1/p')
 cz changelog --unreleased-version=$NEXTVERSION
-cz bump
+cz bump $NEXTVERSION
 ```
