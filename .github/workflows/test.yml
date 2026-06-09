@@ -35,7 +35,7 @@ jobs:
       - name: Run linter
         run: uv run ruff .
       - name: Run type checker
-        run: uv run mypy
+        run: uv run mypy src/
       - name: Run unit tests
         run: uv run pytest --cov --cov-report=xml
       - name: Upload coverage to Codecov
