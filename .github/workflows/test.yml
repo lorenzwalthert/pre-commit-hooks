@@ -2,6 +2,9 @@ name: Test
 
 run-name: ${{ github.actor }} is testing PEP's pre-commit hooks 🚀
 
+permissions:
+  contents: read
+  
 on:
   push:
   pull_request:
