@@ -391,7 +391,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pep-pre-commit-hooks"
+name = "personal-pre-commit-hooks"
 version = "1.1.2"
 source = { editable = "." }
 

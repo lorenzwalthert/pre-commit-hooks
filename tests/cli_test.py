@@ -1,5 +1,5 @@
 import pytest
-from pep_pre_commit_hooks.verify_git_email import (
+from personal_pre_commit_hooks.verify_git_email import (
     DomainMisconfiguredError,
     main,
     parse_args,

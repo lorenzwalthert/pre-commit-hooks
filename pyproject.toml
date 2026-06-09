@@ -1,7 +1,7 @@
 [project]
-name = "pep-pre-commit-hooks"
+name = "personal-pre-commit-hooks"
 version = "1.1.2"
-description = "Public pre-commit hooks"
+description = "Personal pre-commit hooks"
 authors = [{ name = "Lorenz Walthert", email = "lorenz.walthert@icloud.com" }]
 requires-python = ">=3.12.0"
 readme = "README.md"
@@ -12,7 +12,7 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 [project.scripts]
-verify-git-email = "pep_pre_commit_hooks.verify_git_email:main"
+verify-git-email = "personal_pre_commit_hooks.verify_git_email:main"
 
 
 
@@ -45,7 +45,7 @@ dev = [
 default-groups = "all"
 
 [tool.uv.build-backend]
-module-name = ["pep_pre_commit_hooks"]
+module-name = ["personal_pre_commit_hooks"]
 module-root = "src"
 
 [build-system]
@@ -134,7 +134,7 @@ force-wrap-aliases = true
 
 [tool.mypy]
 
-files = "pep_pre_commit_hooks"
+files = "personal_pre_commit_hooks"
 disallow_incomplete_defs = true
 disallow_untyped_defs = true
 exclude = [
